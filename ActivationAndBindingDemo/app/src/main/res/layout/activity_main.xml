@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Application Activation Demo"
+        android:textSize="17sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/binding_state_label"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="Binding State:"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_binding_state_info"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/binding_state_label"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Unknown"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/activation_state_label"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/tv_binding_state_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="App Activation State:"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_activation_state_info"
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:layout_alignEnd="@+id/tv_binding_state_info"
+        android:layout_below="@+id/activation_state_label"
+        android:text="Unknown"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/common_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tv_activation_state_info"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="79dp"
+        android:text="Login" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        style="@style/common_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/tv_activation_state_info"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="79dp"
+        android:text="Logout" />
+
+</RelativeLayout>
