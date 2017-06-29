@@ -4,6 +4,11 @@ android {
     compileSdkVersion 23
     buildToolsVersion '25.0.0'
     defaultConfig {
+
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
+
         applicationId "com.dji.activationDemo"
         minSdkVersion 19
         targetSdkVersion 23
