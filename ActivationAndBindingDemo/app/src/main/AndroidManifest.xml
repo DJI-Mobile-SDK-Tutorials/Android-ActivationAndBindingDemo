@@ -30,7 +30,7 @@
 
     <!-- SDK requirement permission end -->
     <application
-        android:name=".DemoApplication"
+        android:name=".MApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -60,6 +60,7 @@
         <!-- DJI SDK -->
 
         <activity android:name=".ConnectionActivity"
+            android:configChanges="orientation"
             android:screenOrientation="portrait">
 
             <intent-filter>
