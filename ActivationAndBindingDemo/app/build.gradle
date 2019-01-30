@@ -42,12 +42,10 @@ android {
 
 dependencies {
 
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')0
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile ('com.dji:dji-sdk:4.8.1')
-    provided ('com.dji:dji-sdk-provided:4.8.1')
+    compile ('com.dji:dji-sdk:4.9')
+    provided ('com.dji:dji-sdk-provided:4.9')
 }
