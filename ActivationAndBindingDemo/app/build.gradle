@@ -41,11 +41,9 @@ android {
 }
 
 dependencies {
-
-    compile fileTree(include: ['*.jar'], dir: 'libs')0
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
-    compile ('com.dji:dji-sdk:4.9')
-    provided ('com.dji:dji-sdk-provided:4.9')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.dji:dji-sdk:4.9'
+    compileOnly 'com.dji:dji-sdk-provided:4.9'
 }
