@@ -18,6 +18,7 @@ import dji.sdk.base.BaseProduct;
 import dji.sdk.camera.Camera;
 import dji.sdk.products.Aircraft;
 import dji.sdk.products.HandHeld;
+import dji.sdk.sdkmanager.DJISDKInitEvent;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class DemoApplication extends Application {
@@ -150,6 +151,10 @@ public class DemoApplication extends Application {
                                 componentKey,
                                 oldComponent,
                                 newComponent));
+
+            }
+            @Override
+            public void onInitProcess(DJISDKInitEvent djisdkInitEvent, int i) {
 
             }
         };
