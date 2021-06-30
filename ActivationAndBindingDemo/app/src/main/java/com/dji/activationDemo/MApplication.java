@@ -6,8 +6,8 @@ import android.content.Context;
 import com.secneo.sdk.Helper;
 
 public class MApplication extends Application {
-
     private DemoApplication demoApplication;
+
     @Override
     protected void attachBaseContext(Context paramContext) {
         super.attachBaseContext(paramContext);
@@ -23,5 +23,4 @@ public class MApplication extends Application {
         super.onCreate();
         demoApplication.onCreate();
     }
-
 }

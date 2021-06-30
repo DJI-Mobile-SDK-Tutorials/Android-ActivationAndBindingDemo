@@ -42,20 +42,21 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
     private TextView mVersionTv;
 
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.VIBRATE,
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_WIFI_STATE,
-            Manifest.permission.WAKE_LOCK,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.CHANGE_WIFI_STATE,
+            Manifest.permission.RECORD_AUDIO,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.BLUETOOTH,
-            Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
     };
+
     private List<String> missingPermission = new ArrayList<>();
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
@@ -100,9 +101,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
      * Result of runtime permission request
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         // Check for granted permission and remove from missing list
         if (requestCode == REQUEST_PERMISSION_CODE) {
@@ -145,6 +144,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                             showToast("Product Disconnected");
 
                         }
+
                         @Override
                         public void onProductConnect(BaseProduct baseProduct) {
                             Log.d(TAG, String.format("onProductConnect newProduct:%s", baseProduct));
@@ -160,7 +160,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                         @Override
                         public void onComponentChange(BaseProduct.ComponentKey componentKey, BaseComponent oldComponent,
                                                       BaseComponent newComponent) {
-
                             if (newComponent != null) {
                                 newComponent.setComponentListener(new BaseComponent.ComponentListener() {
 
@@ -170,12 +169,8 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
                                     }
                                 });
                             }
-                            Log.d(TAG,
-                                    String.format("onComponentChange key:%s, oldComponent:%s, newComponent:%s",
-                                            componentKey,
-                                            oldComponent,
-                                            newComponent));
-
+                            Log.d(TAG, String.format("onComponentChange key:%s, " + "oldComponent:%s, " + "newComponent:%s",
+                                    componentKey, oldComponent, newComponent));
                         }
                         @Override
                         public void onInitProcess(DJISDKInitEvent djisdkInitEvent, int i) {
@@ -223,7 +218,6 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
     }
 
     private void initUI() {
-
         mTextConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
         mTextProduct = (TextView) findViewById(R.id.text_product_info);
         mBtnOpen = (Button) findViewById(R.id.btn_open);
@@ -268,15 +262,9 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.btn_open: {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                break;
-            }
-            default:
-                break;
+        if (v.getId() == R.id.btn_open) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -285,9 +273,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
             @Override
             public void run() {
                 Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_LONG).show();
-
             }
         });
     }
-
 }

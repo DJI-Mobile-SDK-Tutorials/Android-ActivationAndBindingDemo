@@ -31,12 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
         initUI();
         initData();
-
     }
 
     @Override
@@ -71,21 +68,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initUI(){
-
         bindingStateTV = (TextView) findViewById(R.id.tv_binding_state_info);
         appActivationStateTV = (TextView) findViewById(R.id.tv_activation_state_info);
         loginBtn = (Button) findViewById(R.id.btn_login);
         logoutBtn = (Button) findViewById(R.id.btn_logout);
         loginBtn.setOnClickListener(this);
         logoutBtn.setOnClickListener(this);
-
     }
 
     private void initData(){
         setUpListener();
-
         appActivationManager = DJISDKManager.getInstance().getAppActivationManager();
-
         if (appActivationManager != null) {
             appActivationManager.addAppActivationStateListener(activationStateListener);
             appActivationManager.addAircraftBindingStateListener(bindingStateListener);
@@ -94,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void run() {
                     appActivationStateTV.setText("" + appActivationManager.getAppActivationState());
                     bindingStateTV.setText("" + appActivationManager.getAircraftBindingState());
-
                 }
             });
         }
@@ -114,18 +106,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        bindingStateListener = new AircraftBindingState.AircraftBindingStateListener() {
-
+        bindingStateListener = bindingState -> MainActivity.this.runOnUiThread(new Runnable() {
             @Override
-            public void onUpdate(final AircraftBindingState bindingState) {
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        bindingStateTV.setText("" + bindingState);
-                    }
-                });
+            public void run() {
+                bindingStateTV.setText("" + bindingState);
             }
-        };
+        });
     }
 
     private void tearDownListener() {
@@ -159,23 +145,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
-            case R.id.btn_login:{
+            case R.id.btn_login:
                 loginAccount();
                 break;
-            }
-            case R.id.btn_logout:{
+            case R.id.btn_logout:
                 logoutAccount();
                 break;
-            }
             default:
                 break;
         }
     }
 
     private void loginAccount(){
-
         UserAccountManager.getInstance().logIntoDJIUserAccount(this,
                 new CommonCallbacks.CompletionCallbackWith<UserAccountState>() {
                     @Override
@@ -188,21 +170,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 + error.getDescription());
                     }
                 });
-
     }
 
     private void logoutAccount(){
-        UserAccountManager.getInstance().logoutOfDJIUserAccount(new CommonCallbacks.CompletionCallback() {
-            @Override
-            public void onResult(DJIError error) {
-                if (null == error) {
-                    showToast("Logout Success");
-                } else {
-                    showToast("Logout Error:"
-                            + error.getDescription());
-                }
+        UserAccountManager.getInstance().logoutOfDJIUserAccount(error -> {
+            if (null == error) {
+                showToast("Logout Success");
+            } else {
+                showToast("Logout Error:"
+                        + error.getDescription());
             }
         });
     }
-
 }

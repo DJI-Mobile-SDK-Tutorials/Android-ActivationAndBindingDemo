@@ -21,10 +21,8 @@ import dji.sdk.sdkmanager.DJISDKInitEvent;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class DemoApplication extends Application {
-
     public static final String FLAG_CONNECTION_CHANGE = "activationDemo_connection_change";
 
-    private DJISDKManager.SDKManagerCallback mDJISDKManagerCallback;
     private static BaseProduct mProduct;
     public Handler mHandler;
 
@@ -54,30 +52,6 @@ public class DemoApplication extends Application {
         return mProduct;
     }
 
-    public static boolean isAircraftConnected() {
-        return getProductInstance() != null && getProductInstance() instanceof Aircraft;
-    }
-
-    public static boolean isHandHeldConnected() {
-        return getProductInstance() != null && getProductInstance() instanceof HandHeld;
-    }
-
-    public static synchronized Camera getCameraInstance() {
-
-        if (getProductInstance() == null) return null;
-
-        Camera camera = null;
-
-        if (getProductInstance() instanceof Aircraft){
-            camera = ((Aircraft) getProductInstance()).getCamera();
-
-        } else if (getProductInstance() instanceof HandHeld) {
-            camera = ((HandHeld) getProductInstance()).getCamera();
-        }
-
-        return camera;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -87,13 +61,14 @@ public class DemoApplication extends Application {
          * When starting SDK services, an instance of interface DJISDKManager.DJISDKManagerCallback will be used to listen to
          * the SDK Registration result and the product changing.
          */
-        mDJISDKManagerCallback = new DJISDKManager.SDKManagerCallback() {
+        //Listens to the SDK registration result
+        DJISDKManager.SDKManagerCallback mDJISDKManagerCallback = new DJISDKManager.SDKManagerCallback() {
 
             //Listens to the SDK registration result
             @Override
             public void onRegister(DJIError error) {
 
-                if(error == DJISDKError.REGISTRATION_SUCCESS) {
+                if (error == DJISDKError.REGISTRATION_SUCCESS) {
 
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
@@ -125,6 +100,7 @@ public class DemoApplication extends Application {
                 Log.d("TAG", "onProductDisconnect");
                 notifyStatusChange();
             }
+
             @Override
             public void onProductConnect(BaseProduct baseProduct) {
                 Log.d("TAG", String.format("onProductConnect newProduct:%s", baseProduct));
@@ -158,6 +134,7 @@ public class DemoApplication extends Application {
                                 newComponent));
 
             }
+
             @Override
             public void onInitProcess(DJISDKInitEvent djisdkInitEvent, int i) {
 
@@ -195,5 +172,4 @@ public class DemoApplication extends Application {
             getApplicationContext().sendBroadcast(intent);
         }
     };
-
 }
