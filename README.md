@@ -8,7 +8,7 @@ This demo shows you how to use DJI Android Mobile SDK to activate the SDK mobile
 
  - Android Studio 4.2.1
  - Android System 5.0.0+
- - DJI Android SDK 4.15.1
+ - DJI Android SDK 4.16
 
 ## Tutorial
 
